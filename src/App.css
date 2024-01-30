@@ -1,0 +1,107 @@
+.App {
+	/* display: flex; */
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+h4 {
+	margin: 0 auto;
+}
+/* .App-logo {
+	height: 40vmin;
+	pointer-events: none;
+} */
+
+/* @media (prefers-reduced-motion: no-preference) {
+	.App-logo {
+		animation: App-logo-spin infinite 20s linear;
+	}
+} */
+
+.App-header {
+	height: 70px;
+	background-color: #282c34;
+	/* min-height: 100vh; */
+	display: flex;
+	/* flex-direction: column; */
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
+	color: white;
+}
+.App-header input {
+	margin: 6px;
+	border-radius: 10px;
+	background-color: #4e5d7b;
+	font-size: calc(6px + 2vmin);
+	color: white;
+	padding: 2px;
+}
+
+/* .App-header button {
+	margin: 10px;
+	border-radius: 50%;
+	background-color: #4e5d7b;
+	font-size: calc(10px + 2vmin);
+	color: white;
+} */
+
+.App-link {
+	color: #61dafb;
+}
+
+.main {
+	margin: 5px;
+	display: flex;
+	justify-content: center;
+	background-color: #5e6b84;
+	min-height: 100vh;
+	/* display: flex; */
+	/* flex-direction: column; */
+	/* align-items: center; */
+	/* justify-content: center; */
+	font-size: calc(10px + 2vmin);
+	color: white;
+}
+
+.task-container {
+	width: 330px;
+	height: 380px;
+	margin: 20px;
+	text-shadow: 1px 1px 1px #b4c21c;
+	border: 2px solid #3f5177;
+	border-radius: 15px;
+	background-color: #8da0c3;
+	position: relative;
+	box-shadow: 1px 2px 3px #343a47;
+}
+.buttons {
+	position: absolute;
+	margin-left: 10px;
+	bottom: 7px;
+}
+
+.task-container li {
+	list-style: none;
+}
+
+@keyframes App-logo-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.error__message {
+	color: tomato;
+}
+
+.active-filter {
+	background-color: #ceaeef;
+}
+
+.is-done {
+	opacity: 0.5;
+}
