@@ -25,7 +25,7 @@ const AddItemForm = (props: PropsType) => {
 		}
 	}
 
-	function addTask() {
+	function addTodoList() {
 		if (value.trim() === '') {
 			setError('title is required')
 			return
@@ -47,7 +47,7 @@ const AddItemForm = (props: PropsType) => {
 				error={!!error}
 				helperText={error}
 			/>
-			<IconButton onClick={addTask} color={'primary'}>
+			<IconButton onClick={addTodoList} color={'primary'}>
 				<ControlPointIcon />
 			</IconButton>
 		</div>

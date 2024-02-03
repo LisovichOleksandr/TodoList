@@ -2,10 +2,10 @@ import { TodoListComponentType } from '../App'
 import {
 	ActionChangeFilterType,
 	ActionRemoveNameType,
-	addTodoList,
+	addTodoListAC,
 	changeFilterAC,
 	removeNameAC,
-	removeTodoList,
+	removeTodoListAC,
 	todoListsReducer,
 } from './todolists-reducer'
 // TEST-1
@@ -21,11 +21,11 @@ test('add new todo list in state', () => {
 	]
 	const endState: Array<TodoListComponentType> = todoListsReducer(
 		startState,
-		addTodoList(newTitle)
+		addTodoListAC(newTitle)
 	)
 	expect(endState.length).toBe(2)
-	expect(endState.at(-1)?.title).toBe(newTitle)
-	expect(endState.at(-1)?.filter).toBe('all')
+	expect(endState[0].title).toBe(newTitle)
+	expect(endState[0].filter).toBe('all')
 })
 
 // TEST-2
@@ -35,7 +35,7 @@ test('todo list should be remove', () => {
 		{ id: '2suites', title: 'two', filter: 'all' },
 	]
 
-	const endState = todoListsReducer(startState, removeTodoList('2suites'))
+	const endState = todoListsReducer(startState, removeTodoListAC('2suites'))
 	expect(endState.length).toBe(1)
 	expect(endState[0].id).toBe('1suites')
 })

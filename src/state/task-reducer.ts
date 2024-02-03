@@ -38,9 +38,10 @@ export const taskReducer = (
 			return stateCopy
 		}
 		case 'ADD-TODO': {
-			const stateCopy = { ...state }
-			stateCopy[action.todoListId] = []
-			return stateCopy
+			return {
+				...state,
+				[action.todoListId]: [],
+			}
 		}
 		case 'REMOVE-TODO': {
 			const stateCopy = { ...state }
@@ -60,7 +61,7 @@ type ActionType =
 	| ActionAddTodoType
 	| ActionRemoveTodoType
 
-type AddTaskType = {
+export type AddTaskType = {
 	type: 'ADD-TASK'
 	todoListId: string
 	value: string
@@ -126,3 +127,12 @@ export const changeStatusAC = (
 		todoListId,
 	}
 }
+
+// type RemoveTaskACType = ReturnType<typeof removeTaskAC>
+
+// export const removeTaskAC = (id: string) => {
+// 	return {
+// 		type: 'REMOVE-TODO',
+// 		id,
+// 	} as const
+// }

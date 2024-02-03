@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import { Button } from '@mui/material'
+import React from 'react'
 import { FilterValuesType, TaskType } from './App'
 import './App.css'
 import AddItemForm from './components/AddItemForm'
 import EditSpan from './components/EditSpan'
-import { Button } from '@mui/material'
 
-import { IconButton } from '@mui/material'
 import { Delete } from '@mui/icons-material'
+import { IconButton } from '@mui/material'
 
 type PropsType = {
 	id: string
@@ -23,7 +23,7 @@ type PropsType = {
 }
 
 // COMPONENT
-const Task = (props: PropsType) => {
+const TodoList = (props: PropsType) => {
 	// const [edit, setEdit] = useState<boolean>(false)
 
 	const onAllClickHandler = () => props.changeFilter('all', props.id)
@@ -41,6 +41,7 @@ const Task = (props: PropsType) => {
 	const changeTodoListName = (title: string) => {
 		props.changeTodoListName(title, props.id)
 	}
+
 	// RETURN
 	return (
 		<div className='task-container'>
@@ -59,7 +60,6 @@ const Task = (props: PropsType) => {
 					const changeTask = (title: string) => {
 						props.changeTask(title, props.id, task.id)
 					}
-
 					return (
 						<li key={task.id} className={!task.isDone ? 'is-done' : ''}>
 							<input
@@ -101,4 +101,4 @@ const Task = (props: PropsType) => {
 	)
 }
 
-export default Task
+export default TodoList

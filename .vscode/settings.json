@@ -2,7 +2,7 @@
 	//Main editor settings
 	"window.openFilesInNewWindow": "off",
 	"editor.tabSize": 2,
-	"editor.folding": false,
+	"editor.folding": true,
 	"editor.insertSpaces": false,
 	"editor.smoothScrolling": true,
 	"editor.minimap.enabled": false,

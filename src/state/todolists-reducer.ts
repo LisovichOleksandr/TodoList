@@ -33,12 +33,16 @@ export const todoListsReducer = (
 ): Array<TodoListComponentType> => {
 	switch (action.type) {
 		case 'ADD-TODO':
-			const newTodoList: TodoListComponentType = {
-				id: action.todoListId,
-				title: action.title,
-				filter: 'all',
-			}
-			return [...state, newTodoList]
+			// const newTodoList: TodoListComponentType = {
+			// 	id: action.todoListId,
+			// 	title: action.title,
+			// 	filter: 'all',
+			// }
+			// let d = [...state, newTodoList]
+			return [
+				{ id: action.todoListId, filter: 'all', title: action.title },
+				...state,
+			]
 		case 'REMOVE-TODO':
 			return state.filter(todo => todo.id != action.id)
 		case 'REMOVE-NAME':
@@ -47,22 +51,26 @@ export const todoListsReducer = (
 				findTodo[0].title = action.name
 			}
 			return [...state, ...findTodo]
-		case 'CHANGE-FILTER':
-			const todoList = state.filter(tl => tl.id === action.todoListId)
-			todoList[0].filter = action.value
-			return [...state, ...todoList]
+		case 'CHANGE-FILTER': {
+			const copyState = [...state]
+			let findTodo = copyState.find(tl => tl.id === action.todoListId)
+			if (findTodo) {
+				findTodo.filter = action.value
+			}
+			return copyState
+		}
 		default:
 			throw new Error('I don`t understand this action type')
 	}
 }
-export const addTodoList = (title: string): ActionAddTodoType => {
+export const addTodoListAC = (title: string): ActionAddTodoType => {
 	return {
 		type: 'ADD-TODO',
 		title,
 		todoListId: v1(),
 	}
 }
-export const removeTodoList = (id: string): ActionRemoveTodoType => {
+export const removeTodoListAC = (id: string): ActionRemoveTodoType => {
 	return {
 		type: 'REMOVE-TODO',
 		id,
