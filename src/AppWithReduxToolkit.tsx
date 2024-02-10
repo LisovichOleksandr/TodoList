@@ -1,4 +1,3 @@
-import { useReducer } from 'react'
 import { v1 } from 'uuid'
 
 import './App.css'
@@ -6,70 +5,35 @@ import TodoList from './TodoList'
 import AddItemForm from './components/AddItemForm'
 import { useAppDispatch, useAppSelector } from './hooks/hooks'
 
+import { useCallback, useEffect } from 'react'
+import { addTodoListInTask } from './store/tasks-slice/tasks-slice'
 import {
-	addTaskToolkitAC,
-	addTodoListInTask,
-	changeStatusToolkitAC,
-	changeTaskToolkitAC,
-	deleteTaskToolkitAC,
-	removeTodoListInTask,
-} from './store/tasks-slice/tasks-slice'
-import {
-	FilterValuesType,
 	addTodoListToolkitAC,
-	changeNameTodoListToolkitAC,
-	filterTodoListToolkitAC,
-	removerTodoListToolkitAC,
+	giveMeTodoLists,
 } from './store/todoLists-slice/todoLists-slice'
+import { useGetTodoListQuery } from './store/api/api'
 
 // COMPONENT
 const AppWithReduxToolkit = () => {
+	console.log('Все компоненты в React.memo=(), а все Callback в useCallback()')
+
 	const reduxTodoLists = useAppSelector(state => state.todoListsSlice)
-	const reduxTasks = useAppSelector(state => state.tasksSlice)
 	const dispatch = useAppDispatch()
-	// TILL ReduxToolkit
 
-	// ToDoList
-	const addTodoList = (title: string) => {
-		let id = v1()
-		dispatch(addTodoListInTask({ id }))
-		dispatch(addTodoListToolkitAC({ id, title }))
-	}
+	// const { data, error, isLoading } = useGetTodoListQuery('sd')
 
-	const removeTodoList = (todoListId: string) => {
-		dispatch(removerTodoListToolkitAC(todoListId))
-		dispatch(removeTodoListInTask(todoListId))
-	}
+	useEffect(() => {
+		dispatch(giveMeTodoLists())
+	}, [])
 
-	const changeTodoListName = (title: string, todoListId: string) => {
-		dispatch(changeNameTodoListToolkitAC({ title, todoListId }))
-	}
-
-	function changeFilter(value: FilterValuesType, todoListId: string) {
-		dispatch(filterTodoListToolkitAC({ value, todoListId }))
-	}
-
-	// Task
-
-	const addTask = (value: string, todoListId: string) => {
-		dispatch(addTaskToolkitAC({ value, todoListId }))
-	}
-
-	const deleteTask = (id: string, todoListId: string) => {
-		dispatch(deleteTaskToolkitAC({ id, todoListId }))
-	}
-
-	const changeTask = (title: string, todoListId: string, taskId: string) => {
-		dispatch(changeTaskToolkitAC({ title, todoListId, taskId }))
-	}
-
-	const changeStatus = (
-		taskId: string,
-		isDone: boolean,
-		todoListId: string
-	) => {
-		dispatch(changeStatusToolkitAC({ taskId, isDone, todoListId }))
-	}
+	const addTodoList = useCallback(
+		(title: string) => {
+			let id = v1()
+			dispatch(addTodoListInTask({ id }))
+			dispatch(addTodoListToolkitAC({ id, title }))
+		},
+		[dispatch, addTodoListInTask, addTodoListToolkitAC]
+	)
 
 	// RETURN
 	return (
@@ -80,30 +44,15 @@ const AppWithReduxToolkit = () => {
 			</header>
 			<div className='main'>
 				{reduxTodoLists.map(ts => {
-					let tasksForTodoList = reduxTasks[ts.id]
-					if (ts.filter === 'active') {
-						tasksForTodoList = tasksForTodoList.filter(t => t.isDone)
-					}
-					if (ts.filter === 'completed') {
-						tasksForTodoList = tasksForTodoList.filter(t => !t.isDone)
-					}
-
-					return (
-						<TodoList
-							key={ts.id}
-							id={ts.id}
-							title={ts.title}
-							tasks={tasksForTodoList}
-							deleteTask={deleteTask}
-							changeFilter={changeFilter}
-							addTask={addTask}
-							changeStatus={changeStatus}
-							filter={ts.filter}
-							removeTodoList={removeTodoList}
-							changeTask={changeTask}
-							changeTodoListName={changeTodoListName}
-						/>
-					)
+					if (ts)
+						return (
+							<TodoList
+								key={ts.id}
+								id={ts.id}
+								title={ts.title}
+								filter={ts.filter}
+							/>
+						)
 				})}
 			</div>
 		</div>

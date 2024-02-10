@@ -149,15 +149,7 @@ const App = () => {
 							key={ts.id}
 							id={ts.id}
 							title={ts.title}
-							tasks={tasksForTodoList}
-							deleteTask={deleteTask}
-							changeFilter={changeFilter}
-							addTask={addTask}
-							changeStatus={changeStatus}
 							filter={ts.filter}
-							removeTodoList={removeTodoList}
-							changeTask={changeTask}
-							changeTodoListName={changeTodoListName}
 						/>
 					)
 				})}

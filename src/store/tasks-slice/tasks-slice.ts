@@ -2,19 +2,26 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { v1 } from 'uuid'
 import { todoListId1, todoListId2 } from '../todoLists-slice/todoLists-slice'
 
-const initialState = {
-	[todoListId1]: [
-		{ id: v1(), title: 'HTML', isDone: true },
-		{ id: v1(), title: 'CSS', isDone: true },
-		{ id: v1(), title: 'JS', isDone: false },
-		{ id: v1(), title: 'TypeScript', isDone: true },
-	],
-	[todoListId2]: [
-		{ id: v1(), title: 'React', isDone: true },
-		{ id: v1(), title: 'Redux', isDone: true },
-		{ id: v1(), title: 'Toolkit', isDone: true },
-	],
+// const initialState = {
+// 	[todoListId1]: [
+// 		{ id: v1(), title: 'HTML', isDone: true },
+// 		{ id: v1(), title: 'CSS', isDone: true },
+// 		{ id: v1(), title: 'JS', isDone: false },
+// 		{ id: v1(), title: 'TypeScript', isDone: true },
+// 	],
+// 	[todoListId2]: [
+// 		{ id: v1(), title: 'React', isDone: true },
+// 		{ id: v1(), title: 'Redux', isDone: true },
+// 		{ id: v1(), title: 'Toolkit', isDone: true },
+// 	],
+// }
+export type TaskType = { id: string; title: string; isDone: boolean }
+
+type InitialStateType = {
+	[id: string]: Array<TaskType>
 }
+
+const initialState: InitialStateType = {}
 
 export const tasksSlice = createSlice({
 	name: 'tasksSlice',

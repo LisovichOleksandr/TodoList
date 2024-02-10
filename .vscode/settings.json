@@ -14,7 +14,7 @@
 	// Wrapping
 	"editor.wordWrap": "bounded",
 	"editor.wrappingIndent": "same",
-	"editor.wordWrapColumn": 180,
+	"editor.wordWrapColumn": 380,
 
 	//Определяет, будет ли редактор прокручиваться за пределы последней строки.
 	"editor.scrollBeyondLastLine": true,

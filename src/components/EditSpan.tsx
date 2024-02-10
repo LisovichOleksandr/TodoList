@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import TextField from '@mui/material/TextField'
 
 type PropsType = {
@@ -6,7 +6,9 @@ type PropsType = {
 	changeTask: (title: string) => void
 }
 
-const EditSpan = (props: PropsType) => {
+const EditSpan = React.memo((props: PropsType) => {
+	console.log('Editable Span')
+
 	const [edit, setEdit] = useState<boolean>(false)
 	const [editValue, setEditValue] = useState('')
 
@@ -37,6 +39,6 @@ const EditSpan = (props: PropsType) => {
 			)}
 		</>
 	)
-}
+})
 
 export default EditSpan

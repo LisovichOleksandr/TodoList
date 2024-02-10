@@ -1,6 +1,5 @@
-import React, { useState, ChangeEventHandler } from 'react'
+import React, { useState, useCallback } from 'react'
 import '../App.css'
-import { Button } from '@mui/material'
 import TextField from '@mui/material/TextField'
 import { IconButton } from '@mui/material'
 import ControlPointIcon from '@mui/icons-material/ControlPoint'
@@ -9,23 +8,31 @@ type PropsType = {
 	addItem: (value: string) => void
 }
 
-const AddItemForm = (props: PropsType) => {
+const AddItemForm = React.memo((props: PropsType) => {
 	const [error, setError] = useState<string | null>(null)
 	const [value, setValue] = useState<string>('')
 
-	function onNewTitleChangeHandler(e: React.ChangeEvent<HTMLTextAreaElement>) {
-		setValue(e.currentTarget.value)
-	}
+	const onNewTitleChangeHandler = useCallback(
+		(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+			setValue(e.currentTarget.value)
+		},
+		[setValue]
+	)
 
-	function onKeyPressHandler(e: React.KeyboardEvent<HTMLInputElement>) {
-		setError(null)
-		if (e.ctrlKey && e.charCode === 13) {
-			props.addItem(value)
-			setValue('')
-		}
-	}
+	const onKeyPressHandler = useCallback(
+		(e: React.KeyboardEvent<HTMLInputElement>) => {
+			if (error !== null) {
+				setError(null)
+			}
+			if (e.ctrlKey && e.charCode === 13) {
+				props.addItem(value)
+				setValue('')
+			}
+		},
+		[error, value]
+	)
 
-	function addTodoList() {
+	const addTodoList = useCallback(() => {
 		if (value.trim() === '') {
 			setError('title is required')
 			return
@@ -33,7 +40,7 @@ const AddItemForm = (props: PropsType) => {
 		setError('')
 		props.addItem(value)
 		setValue('')
-	}
+	}, [value, setError, props.addItem, setValue])
 
 	return (
 		<div>
@@ -52,6 +59,5 @@ const AddItemForm = (props: PropsType) => {
 			</IconButton>
 		</div>
 	)
-}
-
+})
 export default AddItemForm
